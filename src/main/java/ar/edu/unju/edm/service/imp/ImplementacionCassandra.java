@@ -1,4 +1,4 @@
-package ar.edu.unju.edm.controller;
+package ar.edu.unju.edm.service.imp;
 
 import java.util.List;
 
@@ -47,6 +47,12 @@ public class ImplementacionCassandra implements IClienteService{
 	public void eliminarCliente(int dni) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Cliente encontrarUnClienteId(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

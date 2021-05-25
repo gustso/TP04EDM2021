@@ -55,7 +55,7 @@ public class ProductoServiceImp implements ProductoService{
 	}
 
 	@Override
-	public Producto obtenerUnProducto(String nombreProducto) {
+	public Producto obtenerUnProducto(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

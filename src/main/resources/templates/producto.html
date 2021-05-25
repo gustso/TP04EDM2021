@@ -8,7 +8,7 @@
 
 	<div th:insert="layout/header :: header"></div>
 	<h1>Formulario de Carga de Producto</h1>
-	<form id="formProducto" th:object="${unProducto}" th:action="${producto}" method="post">
+	<form id="formProducto" th:object="${unProducto}" th:action="@{/producto/guardar}" method="post">
 		
 			<label for="codigo">Codigo</label> 
 			<input type="text"	id="codigo" th:field="*{codProducto}">

@@ -14,22 +14,33 @@
 		<div th:insert="layout/header :: header"></div>
 
 		<div class="row col-md-12">
-			<div th:each="c : ${clientes}">
+			<div th:each="p : ${productos}">
 				<div class="col-md-4">
 					<div class="card" style="width: 18rem;">
-  						<img src="/img/producto.png" class="card-img-top" alt="hola">
+						<img src="/img/producto.png" class="card-img-top" alt="hola">
 						<div class="card-body">
-							<h5 class="card-title" th:text="${'item Id - ' + c.nroDocumento}">Id</h5>
-							<p class="card-text" th:text="${c.numTelefono}">Name</p>
-							<p class="card-text" th:text="${c.email}">Desc</p>
-							<a class="stretched-link btn btn-primary"><i class="fas fa-shopping-cart mr-2"></i> Comprar</a>
+							<h5 class="card-title" th:text="${'item Id - ' + p.codProducto}">Id</h5>
+							<p class="card-text" th:text="${p.precio}">Name</p>
+							<p class="card-text" th:text="${p.nombre}">Desc</p>							
+							<a class="stretched-link btn btn-primary link-compra" 
+								th:href="@{'/producto/comprar/'+${p.codProducto}}"><i
+								class="fas fa-shopping-cart mr-2"></i> Comprar</a> <input
+								type="hidden" id="id" value="${c.idCliente}">
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>		
+
+		<!--Modal Editar-->
+		<div class="modal fade" id="modalComprar" tabindex="-1" role="dialog">
+			<div class="modal-dialog modal-dialog-centered" >
+				<div class="modal-content">
+				
+				</div>
+			</div>
 		</div>
-
-
+		
 		<script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"
 			type="text/javascript" src="webjars/jquery/3.5.1/jquery.min.js"></script>
 		<script th:src="@{/webjars/popper.js/1.16.0/popper.min.js}"
@@ -37,6 +48,14 @@
 		<script th:src="@{/webjars/bootstrap/4.5.0/js/bootstrap.min.js}"
 			type="text/javascript"
 			src="webjars/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() { $(".link-compra").on("click", function(event) {
+									event.preventDefault();
+									$("#modalComprar").modal("show").find(".modal-content").load($(this).attr("href"));
+								});
+					});
+		</script>
 
 		<div th:insert="layout/footer :: footer"></div>
 	</div>

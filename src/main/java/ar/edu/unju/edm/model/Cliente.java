@@ -8,10 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
+
+
 
 @Entity
 @Component
@@ -22,7 +25,10 @@ public class Cliente {
 	@GenericGenerator(name="native", strategy="native")
 	@Column
 	private Integer idCliente;
-	@Column
+	
+	@Column 
+	//@NotNull(message="debe incluir un documento")
+	@Min(1000)
 	private int nroDocumento;
 	
 	@Column
@@ -34,6 +40,7 @@ public class Cliente {
 	//@GeneratedValue(strategy=GenerationTye.IDENTITY)
 	
 	@Column
+	@NotBlank(message="debe incluir un Tipo de Documento")
 	private String tipoDocumento;
 	@Column
 	private int codigoAreaTelefono;
@@ -43,6 +50,9 @@ public class Cliente {
 	@Column
 	//@NotBlank(message="El Apellido no puede quedar en blanco")
 	private String email;
+	
+	@Column
+	private Boolean activa;
 	
 	public Cliente() {
 		// TODO Auto-generated constructor stub
@@ -105,6 +115,16 @@ public class Cliente {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+
+	public boolean isActiva() {
+		return activa;
+	}
+
+
+	public void setActiva(boolean activa) {
+		this.activa = activa;
 	}
 	
 	

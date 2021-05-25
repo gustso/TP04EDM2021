@@ -1,5 +1,7 @@
 package ar.edu.unju.edm.controller;
 
+import javax.validation.Valid;
+
 //import java.time.LocalDate;
 //import java.time.Period;
 
@@ -9,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ar.edu.unju.edm.model.Cliente;
 import ar.edu.unju.edm.service.IClienteService;
@@ -38,13 +42,20 @@ public class ClienteController {
 	}
 
 	@PostMapping("/cliente/guardar")
-	public String guardarNuevoProducto(@ModelAttribute("unCliente") Cliente nuevoCliente, Model model) {		
+	public String guardarNuevoProducto(@Valid @ModelAttribute("unCliente") Cliente nuevoCliente, BindingResult result, Model model) {		
 		LOGGER.info("METHOD: ingresando el metodo Guardar");
-		clienteService.guardarCliente(nuevoCliente);		
-		LOGGER.info("Tamaño del Listado: "+ clienteService.obtenerTodosClientes().size());
+		if (result.hasErrors()) {
+			// si da error el objeto recibido se vuelve a enviar a la vista
+			model.addAttribute("unCliente", nuevoCliente);
+			model.addAttribute("clientes", clienteService.obtenerTodosClientes());
+			return "cliente";
+		} else {
+			clienteService.guardarCliente(nuevoCliente);		
+			LOGGER.info("Tamaño del Listado: "+ clienteService.obtenerTodosClientes().size());
+			return "redirect:/cliente/mostrar";
+		}		
 		//llamo a este método para que puedan ver cómo trabajar con fechas
-		//trabajarConFechas();
-		return "redirect:/cliente/mostrar";
+		//trabajarConFechas();		
 	}
 	
 	//public void trabajarConFechas() {
@@ -78,6 +89,20 @@ public class ClienteController {
 		}				
 		model.addAttribute("clientes", clienteService.obtenerTodosClientes());		
 		return "cliente";
+	}
+	
+	@GetMapping("/cliente/editarCompra/{id}")	
+	public String editarClienteCompra(Model model, @PathVariable(name="id") int id) throws Exception {
+		Cliente clienteEncontrado = new Cliente();
+		LOGGER.info("METHOD: ingresando el metodo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+		try {		
+			clienteEncontrado = clienteService.encontrarUnClienteId(id);		
+			model.addAttribute("unClienteDetalle",clienteEncontrado);
+		}
+		catch (Exception e) {
+			model.addAttribute("formUsuarioErrorMessage",e.getMessage());		
+		}		
+		return "cliente-modal";
 	}
 	
 	@PostMapping("/cliente/modificar")

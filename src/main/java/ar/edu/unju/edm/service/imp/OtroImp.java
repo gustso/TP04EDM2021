@@ -44,7 +44,7 @@ public class OtroImp implements IClienteService{
 	//public Cliente encontrarUnCliente(int dni) {
 		// TODO Auto-generated method stub
 		
-		//return clienteDAO.findByNroDocumento();
+		//return clienteDAO.findByNroDocumento();		
 		return clienteDAO.findByNroDocumento(dni).orElseThrow(()->new Exception("El cliente NO existe"));
 	}
 
@@ -84,5 +84,11 @@ public class OtroImp implements IClienteService{
 		// TODO Auto-generated method stub
 		Cliente clienteEliminar = clienteDAO.findByNroDocumento(dni).orElseThrow(()->new Exception("El Cliente no fue encontrado"));
 		clienteDAO.delete(clienteEliminar);
+	}
+
+	@Override
+	public Cliente encontrarUnClienteId(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return clienteDAO.findById(id).orElseThrow(()->new Exception("El cliente NO existe"));
 	}
 }

@@ -22,6 +22,7 @@ public class ClienteServiceImp implements IClienteService{
 	@Override
 	public void guardarCliente(Cliente unCliente) {
 		// TODO Auto-generated method stub
+		unCliente.setActiva(true);
 		listadoClientes.add(unCliente);
 	}
 
@@ -66,6 +67,12 @@ public class ClienteServiceImp implements IClienteService{
 		    	listadoClientes.remove(i);
 		    }
 		}
+	}
+
+	@Override
+	public Cliente encontrarUnClienteId(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
