@@ -1,4 +1,4 @@
-package ar.edu.unju.edm.model;
+	package ar.edu.unju.edm.model;
 
 import java.time.LocalDate;
 //import java.util.Date;
@@ -53,6 +53,9 @@ public class Cliente {
 	
 	@Column
 	private Boolean activa;
+	
+	@Column
+	private byte[] fotografia;
 	
 	public Cliente() {
 		// TODO Auto-generated constructor stub
@@ -126,7 +129,25 @@ public class Cliente {
 	public void setActiva(boolean activa) {
 		this.activa = activa;
 	}
-	
-	
+
+
+	public Boolean getActiva() {
+		return activa;
+	}
+
+
+	public void setActiva(Boolean activa) {
+		this.activa = activa;
+	}
+
+
+	public byte[] getFotografia() {
+		return fotografia;
+	}
+
+
+	public void setFotografia(byte[] fotografia) {
+		this.fotografia = fotografia;
+	}	
 
 }

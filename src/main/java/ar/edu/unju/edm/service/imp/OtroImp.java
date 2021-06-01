@@ -90,5 +90,6 @@ public class OtroImp implements IClienteService{
 	public Cliente encontrarUnClienteId(int id) throws Exception {
 		// TODO Auto-generated method stub
 		return clienteDAO.findById(id).orElseThrow(()->new Exception("El cliente NO existe"));
-	}
+	}	
+	
 }

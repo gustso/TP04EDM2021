@@ -7,7 +7,7 @@
 <link th:rel="stylesheet"
 	th:href="@{/webjars/font-awesome/5.11.2/css/all.css} " />
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Comprar</title>
 </head>
 <body>
 	<div class="container">
@@ -17,7 +17,7 @@
 			<div th:each="p : ${productos}">
 				<div class="col-md-4">
 					<div class="card" style="width: 18rem;">
-						<img th:src="*{'data:;base64,'+p.imagen}" class="card-img-top" alt="hola">
+						<img src="/img/producto.png" class="card-img-top" alt="hola">
 						<div class="card-body">
 							<h5 class="card-title" th:text="${'item Id - ' + p.codProducto}">Id</h5>
 							<p class="card-text" th:text="${p.precio}">Name</p>

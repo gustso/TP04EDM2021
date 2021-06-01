@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,6 +36,9 @@ public class Producto {
 	private int stock;	
 	@Column
 	private boolean activa = true;
+	@Lob
+	@Column(name = "prod_imagen", columnDefinition = "LONGBLOB")
+	private String imagen;
 	
 	@OneToMany(mappedBy ="producto", cascade = CascadeType.ALL)
 	private List<Compra> compras = new ArrayList<Compra>();
@@ -100,5 +104,11 @@ public class Producto {
 		this.compras = compras;
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
 
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
 }

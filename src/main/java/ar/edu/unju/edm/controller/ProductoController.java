@@ -1,5 +1,8 @@
 package ar.edu.unju.edm.controller;
 
+import java.io.IOException;
+import java.util.Base64;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import ar.edu.unju.edm.model.Cliente;
 import ar.edu.unju.edm.model.Producto;
@@ -29,8 +34,11 @@ public class ProductoController {
 		return("producto");
 	}
 	
-	@PostMapping("/producto/guardar")
-	public String guardarNuevoProducto(@ModelAttribute("unProducto") Producto nuevoProducto, Model model) {
+	@PostMapping(value="/producto/guardar", consumes = "multipart/form-data")
+	public String guardarNuevoProducto(@RequestParam("file") MultipartFile file, @ModelAttribute("unProducto") Producto nuevoProducto, Model model) throws IOException {
+		byte[] content = file.getBytes();
+		String base64 = Base64.getEncoder().encodeToString(content);
+		nuevoProducto.setImagen(base64);
 		iProductoService.guardarProducto(nuevoProducto);
 		//mostrar el listado de producto luego de la carga de un producto		
 		GUSTAVO.error("solo de prueba");
@@ -50,8 +58,7 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/producto/vender")
-	public String cargarProductoVender(Model model) {
-		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	public String cargarProductoVender(Model model) {		
 		GUSTAVO.error("solo de prueba: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 		model.addAttribute("unProducto", iProductoService.obtenerProductoNuevo());
 		model.addAttribute("productos", iProductoService.obtenerTodosProductos());
